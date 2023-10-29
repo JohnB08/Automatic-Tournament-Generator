@@ -1,9 +1,6 @@
 const firstRow = document.querySelector(".first-row");
 const secondRow = document.querySelector(".second-row");
 const final = document.querySelector(".final");
-const tournamentSizeSelector = document.createElement("input");
-const tournamentSizeSelectorLabel = document.createElement("label");
-const tournamentSubmitBtn = document.createElement("button");
 const attributes = {
   mainInput: {
     id: "tournamentselector",
@@ -13,44 +10,34 @@ const attributes = {
   },
   mainInputLabel: {
     for: "tournamentselector",
-    innerText: "Choose ammount of Contestants",
+    innerHTML: "Choose ammount of Contestants",
     style: "display: block; ",
   },
   mainBtn: {
-    text: "Set Up Tournament",
+    innerHTML: "Set Up Tournament",
     style:
       "display: block; padding: 0.5em 1em; background-color: blue; border: none; border-radius: 1em; color: white; transition: 300ms;",
     onMouseOver: "this.style.backgroundColor = 'black'",
     onMouseLeave: "this.style.backgroundColor = 'blue'",
   },
 };
-for (let attribute of Object.keys(attributes.mainInput)) {
-  tournamentSizeSelector.setAttribute(
-    attribute,
-    attributes.mainInput[attribute]
-  );
-}
-for (let attribute of Object.keys(attributes.mainInputLabel)) {
-  tournamentSizeSelectorLabel.setAttribute(
-    attribute,
-    attributes.mainInputLabel[attribute]
-  );
-}
-tournamentSizeSelectorLabel.innerText = attributes.mainInputLabel.innerText;
-for (let attribute of Object.keys(attributes.mainBtn)) {
-  tournamentSubmitBtn.setAttribute(attribute, attributes.mainBtn[attribute]);
-}
-tournamentSubmitBtn.textContent = attributes.mainBtn.text;
+
 function appendStartInputs() {
-  secondRow.appendChild(tournamentSizeSelectorLabel);
-  secondRow.appendChild(tournamentSizeSelector);
-  secondRow.appendChild(tournamentSubmitBtn);
+  secondRow.appendChild(
+    Object.assign(document.createElement("label"), attributes.mainInputLabel)
+  );
+  secondRow.appendChild(
+    Object.assign(document.createElement("input"), attributes.mainInput)
+  );
+  secondRow.appendChild(
+    Object.assign(document.createElement("button"), attributes.mainBtn)
+  );
   firstRow.classList.add("main-menu-rows");
   for (let child of firstRow.children) {
     child.classList.add("place-menu");
   }
   secondRow.classList.add("MainMenu");
 }
-
+function renderTournamentStart() {}
 appendStartInputs();
 console.log(firstRow.children);
