@@ -10,7 +10,23 @@ body {
   border: 4px solid black;
   width: 800px;
   height: 800px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 600px 1fr;
+}
+.second-row {
+  display: grid;
+}
+.final {
+  display: grid;
+}
+
+.main-menu-rows {
+  grid-template-rows: repeat(3, 1fr);
+}
+.place-menu {
+  grid-area: 2/2/3/3;
+}
+.MainMenu {
+  place-content: center;
+  gap: 10px;
 }

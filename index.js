@@ -4,47 +4,53 @@ const final = document.querySelector(".final");
 const tournamentSizeSelector = document.createElement("input");
 const tournamentSizeSelectorLabel = document.createElement("label");
 const tournamentSubmitBtn = document.createElement("button");
-const tournamentSizeSelectorAttributes = {
-  id: "tournamentselector",
-  name: "tournamentselector",
-  type: "number",
-  style: "display: block; align-self: center; padding: 0.5em 1em;",
+const attributes = {
+  mainInput: {
+    id: "tournamentselector",
+    name: "tournamentselector",
+    type: "number",
+    style: "display: block; padding: 0.5em 1em;",
+  },
+  mainInputLabel: {
+    for: "tournamentselector",
+    innerText: "Choose ammount of Contestants",
+    style: "display: block; ",
+  },
+  mainBtn: {
+    text: "Set Up Tournament",
+    style:
+      "display: block; padding: 0.5em 1em; background-color: blue; border: none; border-radius: 1em; color: white; transition: 300ms;",
+    onMouseOver: "this.style.backgroundColor = 'black'",
+    onMouseLeave: "this.style.backgroundColor = 'blue'",
+  },
 };
-const tournamentSizeSelectorLabelAttributes = {
-  for: "tournamentselector",
-  innerText: "Choose ammount of Contestants",
-  style: "display: block; align-self: center; margin: auto 0 1em 0;",
-};
-const tournamentSubmitBtnAttributes = {
-  text: "Set Up Tournament",
-  style:
-    "display: block; align-self: center; margin: 1em 0 auto 0; padding: 0.5em 1em; background: blue; border: none; border-radius: 1em; color: white;",
-};
-for (let attribute of Object.keys(tournamentSizeSelectorAttributes)) {
+for (let attribute of Object.keys(attributes.mainInput)) {
   tournamentSizeSelector.setAttribute(
     attribute,
-    tournamentSizeSelectorAttributes[attribute]
+    attributes.mainInput[attribute]
   );
 }
-for (let attribute of Object.keys(tournamentSizeSelectorLabelAttributes)) {
+for (let attribute of Object.keys(attributes.mainInputLabel)) {
   tournamentSizeSelectorLabel.setAttribute(
     attribute,
-    tournamentSizeSelectorLabelAttributes[attribute]
+    attributes.mainInputLabel[attribute]
   );
 }
-tournamentSizeSelectorLabel.innerText =
-  tournamentSizeSelectorLabelAttributes.innerText;
-for (let attribute of Object.keys(tournamentSubmitBtnAttributes)) {
-  tournamentSubmitBtn.setAttribute(
-    attribute,
-    tournamentSubmitBtnAttributes[attribute]
-  );
+tournamentSizeSelectorLabel.innerText = attributes.mainInputLabel.innerText;
+for (let attribute of Object.keys(attributes.mainBtn)) {
+  tournamentSubmitBtn.setAttribute(attribute, attributes.mainBtn[attribute]);
 }
-tournamentSubmitBtn.textContent = tournamentSubmitBtnAttributes.text;
+tournamentSubmitBtn.textContent = attributes.mainBtn.text;
 function appendStartInputs() {
-  firstRow.appendChild(tournamentSizeSelectorLabel);
-  firstRow.appendChild(tournamentSizeSelector);
-  firstRow.appendChild(tournamentSubmitBtn);
+  secondRow.appendChild(tournamentSizeSelectorLabel);
+  secondRow.appendChild(tournamentSizeSelector);
+  secondRow.appendChild(tournamentSubmitBtn);
+  firstRow.classList.add("main-menu-rows");
+  for (let child of firstRow.children) {
+    child.classList.add("place-menu");
+  }
+  secondRow.classList.add("MainMenu");
 }
+
 appendStartInputs();
-console.log(tournamentSizeSelectorLabel);
+console.log(firstRow.children);
