@@ -1,6 +1,5 @@
 const firstRow = document.querySelector(".first-row");
 const secondRow = document.querySelector(".second-row");
-const final = document.querySelector(".final");
 const inputLabel = document.createElement("label");
 const mainBtn = document.createElement("button");
 const attributes = {
@@ -8,7 +7,6 @@ const attributes = {
     id: "tournamentselector",
     name: "tournamentselector",
     type: "number",
-    style: "display: block; padding: 0.5em 1em;",
   },
   mainInputLabel: {
     for: "tournamentselector",
@@ -21,6 +19,17 @@ const attributes = {
       "display: block; padding: 0.5em 1em; background-color: blue; border: none; border-radius: 1em; color: white; transition: 300ms;",
     onMouseOver: "this.style.backgroundColor = 'black'",
     onMouseLeave: "this.style.backgroundColor = 'blue'",
+  },
+  tournamentInput: {
+    id: "tournamentInput",
+    name: "tournamnetInput",
+    type: "text",
+    style: "display: block; padding: 0.5em 1em;",
+  },
+  tournamentInputLabel: {
+    for: "tournamentInput",
+    innerHTML: "Choose Contestant",
+    style: "display: block;",
   },
 };
 
@@ -45,7 +54,28 @@ function appendStartInputs() {
     child.classList.add("place-menu");
   }
   secondRow.classList.add("MainMenu");
+
+  mainBtn.addEventListener("click", renderTournamentStart);
 }
-function renderTournamentStart() {}
+function removeStartInputs() {
+  for (let child of secondRow.children) {
+    child.remove();
+  }
+  console.log(secondRow.children);
+}
+function renderTournamentStart() {
+  let inputValue = document.querySelector("input");
+  removeStartInputs();
+  for (let i = 0; i < inputValue.value; i++) {
+    const contestantLabel = document.createElement("label");
+    contestantLabel.appendChild(
+      Object.assign(document.createElement("input"), attributes.tournamentInput)
+    );
+    secondRow.appendChild(contestantLabel);
+  }
+  for (let key of Object.keys(attributes.tournamentInputLabel)) {
+    contestantLabel.setAttribute(key, attributes.tournamentInputLabel[key]);
+  }
+}
 appendStartInputs();
 console.log(secondRow.children);
