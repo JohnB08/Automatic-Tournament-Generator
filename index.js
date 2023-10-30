@@ -1,6 +1,8 @@
 const firstRow = document.querySelector(".first-row");
 const secondRow = document.querySelector(".second-row");
 const final = document.querySelector(".final");
+const inputLabel = document.createElement("label");
+const mainBtn = document.createElement("button");
 const attributes = {
   mainInput: {
     id: "tournamentselector",
@@ -23,15 +25,21 @@ const attributes = {
 };
 
 function appendStartInputs() {
-  secondRow.appendChild(
-    Object.assign(document.createElement("label"), attributes.mainInputLabel)
-  );
+  for (let key of Object.keys(attributes.mainInputLabel)) {
+    inputLabel.setAttribute(key, attributes.mainInputLabel[key]);
+  }
+  inputLabel.innerHTML = attributes.mainInputLabel.innerHTML;
+  secondRow.appendChild(inputLabel);
+
   secondRow.appendChild(
     Object.assign(document.createElement("input"), attributes.mainInput)
   );
-  secondRow.appendChild(
-    Object.assign(document.createElement("button"), attributes.mainBtn)
-  );
+  for (let key of Object.keys(attributes.mainBtn)) {
+    mainBtn.setAttribute(key, attributes.mainBtn[key]);
+  }
+  mainBtn.innerHTML = attributes.mainBtn.innerHTML;
+  secondRow.appendChild(mainBtn);
+
   firstRow.classList.add("main-menu-rows");
   for (let child of firstRow.children) {
     child.classList.add("place-menu");
@@ -40,4 +48,4 @@ function appendStartInputs() {
 }
 function renderTournamentStart() {}
 appendStartInputs();
-console.log(firstRow.children);
+console.log(secondRow.children);
