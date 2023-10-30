@@ -2,6 +2,7 @@ const firstRow = document.querySelector(".first-row");
 const secondRow = document.querySelector(".second-row");
 const inputLabel = document.createElement("label");
 const mainBtn = document.createElement("button");
+const contestantLabel = document.createElement("label");
 const attributes = {
   mainInput: {
     id: "tournamentselector",
@@ -24,14 +25,15 @@ const attributes = {
     id: "tournamentInput",
     name: "tournamnetInput",
     type: "text",
-    style: "display: block; padding: 0.5em 1em;",
+    style: "padding: 0.5em 1em;",
   },
   tournamentInputLabel: {
     for: "tournamentInput",
     innerHTML: "Choose Contestant",
-    style: "display: block;",
   },
 };
+let rows = 0;
+let assignedRows = 2;
 
 function appendStartInputs() {
   for (let key of Object.keys(attributes.mainInputLabel)) {
@@ -63,18 +65,43 @@ function removeStartInputs() {
   }
   console.log(secondRow.children);
 }
-function renderTournamentStart() {
-  let inputValue = document.querySelector("input");
-  removeStartInputs();
-  for (let i = 0; i < inputValue.value; i++) {
-    const contestantLabel = document.createElement("label");
-    contestantLabel.appendChild(
+function makeGrid(inputValue) {
+  firstRow.classList.remove("main-menu-rows");
+  rows = Math.floor(inputValue / 2) + 2;
+  firstRow.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+  console.log(inputValue);
+}
+function makeInputs(inputValue) {
+  for (let i = 0; i < inputValue; i++) {
+    firstRow.appendChild(
       Object.assign(document.createElement("input"), attributes.tournamentInput)
     );
-    secondRow.appendChild(contestantLabel);
+    contestantLabel.innerHTML = attributes.tournamentInputLabel.innerHTML;
+    firstRow.appendChild(contestantLabel);
   }
   for (let key of Object.keys(attributes.tournamentInputLabel)) {
     contestantLabel.setAttribute(key, attributes.tournamentInputLabel[key]);
+  }
+  let tournamentContestant = document.querySelectorAll(".first-row input");
+  for (let i = 0; i < inputValue; i++) {
+    if (i % 2) {
+      assignedRows++;
+      tournamentContestant[i].style.gridColumn = `1 / span 1`;
+      tournamentContestant[i].style.gridRow = `${assignedRows} / span 1`;
+    } else {
+      tournamentContestant[i].style.gridColumn = `2 / span 1`;
+      tournamentContestant[i].style.gridRow = `${assignedRows} / span 1`;
+    }
+  }
+}
+function renderTournamentStart() {
+  let inputField = document.querySelector("input");
+  if (!inputField.value) {
+    return;
+  } else {
+    removeStartInputs();
+    makeGrid(inputField.value);
+    makeInputs(inputField.value);
   }
 }
 appendStartInputs();
